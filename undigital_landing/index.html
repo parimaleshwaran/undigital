@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Free Web tutorials" />
+		<meta name="keywords" content="HTML, CSS, JavaScript" />
+		<meta name="author" content="John Doe" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<title>Title of the document</title>
+		<link href="./style.css" rel="stylesheet" />
+		<!-- <div>
+			{% set json = hubdb_table_rows(5103082, "*") %} {% set json_data = [] %}
+			{% for row in json %} {% set item = { "name": row.name, "role": row.role,
+			"image": row.image } %} {% set json_data = json_data.append(item) %} {%
+			endfor %} {% set _ = json_data.append(item) %}
+		</div> -->
+	</head>
+	<body>
+		<!-- unboxing section -->
+		<div class="unbox">
+			<div class="unbox-row">
+				<div class="unbox-con">
+					<h1>Revolutionizing the Unboxing Experience</h1>
+					<p>
+						With tens of millions of customer unboxing experiences being shared
+						online each year, this touchpoint has become a cornerstone of brand
+						evaluation in the modern world.
+					</p>
+					<a href>
+						<button>Learn About Our Grading System</button>
+					</a>
+				</div>
+				<div class="unbox-img">
+					<img src="./images/playlist.png" alt="playlist" />
+				</div>
+			</div>
+		</div>
+		<div class="vector ve-top">
+			<p></p>
+		</div>
+
+		<!-- tab section  -->
+		<div class="tab-section">
+			<div id="viewall">
+				<div class="tab-lists" id="tabs">
+					<div class="industry">View All</div>
+				</div>
+			</div>
+			<div id="industryContainer" class="indusContent1"></div>
+		</div>
+		<div class="lead-eg" id="lead-more-btn">
+			<button onclick="showMore()">Lead More</button>
+		</div>
+		<!-- unboxing experience -->
+		<div class="vector">
+			<p></p>
+		</div>
+		<div class="unbox">
+			<div class="unbox-row unbox-list">
+				<div class="unbox-img unbox-i">
+					<img src="./images/playlist.png" alt="playlist" />
+				</div>
+				<div class="unbox-ex unbox-you">
+					<h2>Want Your Unboxing Experience Reviewed?</h2>
+					<div class="unbox-take">
+						<img src="./images/customer.png" alt="customer" />
+						<div class="unbox-sp">
+							<span>Take control of your customer experience</span>
+							<p>
+								Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+								lorem ipsum lorem ipsum.
+							</p>
+						</div>
+					</div>
+					<div class="unbox-take">
+						<img src="./images/customer.png" alt="customer" />
+						<div class="unbox-sp">
+							<span>Improve your customer reorder rate</span>
+							<p>
+								Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+								lorem ipsum lorem ipsum.
+							</p>
+						</div>
+					</div>
+					<div class="unbox-take">
+						<img src="./images/customer.png" alt="customer" />
+						<div class="unbox-sp">
+							<span>Build brand loyalty with your VIP customers</span>
+							<p>
+								Lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+								lorem ipsum lorem ipsum.
+							</p>
+						</div>
+					</div>
+					<a href="">
+						<button>Let’s Get Started</button>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- tabs section -->
+		<script>
+			var tab;
+			var tabContent;
+			var industryContent;
+			window.onload = function () {
+				loadJson();
+				// set default
+			};
+
+			function initialDataSetup() {
+				const industryContainer = document.getElementById("industryContainer");
+				tabContent = document.getElementsByClassName("indusContent");
+				document
+					.getElementsByClassName("industry")
+					.item(0)
+					.classList.add("whiteborder");
+				for (index in document.getElementsByClassName("industry")) {
+					const element = document
+						.getElementsByClassName("industry")
+						.item(index);
+					console.log(element);
+					element.addEventListener("click", (el) => {
+						let values = industryContent.filter(
+							(cont) => cont.category === el.target.innerHTML
+						);
+						if (el.target.innerHTML === "View All") {
+							values = industryContent;
+						}
+						for (el1 of document.getElementsByClassName("industry")) {
+							el1.classList.remove("whiteborder");
+						}
+						el.target.classList.add("whiteborder");
+						removeCards();
+						createCards(values);
+					});
+				}
+			}
+
+			function removeCards() {
+				industryContainer.innerHTML = "";
+			}
+			function createCards(datas) {
+				const len = datas.length;
+				const leadMoreBtn = document.getElementById("lead-more-btn");
+				datas.length > 5
+					? (leadMoreBtn.style.display = "")
+					: (leadMoreBtn.style.display = "none");
+				for (let i = 0; i < len; i++) {
+					const container = document.createElement("div");
+					container.id = `expense${i}`;
+					container.classList.add("indus-card");
+					container.setAttribute("name", datas[i].category);
+					container.innerHTML = `
+					                     <div class="ca-vid">
+						                 <video src=${
+																datas[i]?.video
+															} muted loop id="video${i}"></video>
+										 <img src=${datas[i].thumbnail} id="thumb${i}"></div>
+						                 <div class="indus-det">
+						                 <div class="indus-eg">
+						                 <div class='industry-title'><span>${
+																datas[i].title
+															}</span></div>
+						                 <div class='industry-sub-title'><h3>${
+																datas[i].sub_title
+															}</h3></div>
+						                 <div class='industry-content'><p>${datas[i].content}</p></div>
+						                 <button>${
+																datas[i].button
+															}<img src="./images/review-arrow.svg"></button>
+						                 </div>
+										 <div class="percent">
+                                         <svg>
+                                         <circle cx="50" cy="50" r="28"></circle>
+                                         <circle cx="50" cy="50" r="28" style="--percent:${
+																						datas[i].spinner * 10
+																					};"></circle>
+                                         </svg>
+                                         <p>${datas[i].spinner}</p>
+                                         </div>
+                                         </div>
+                                         <div class="load-con">
+						                 </div>
+						                 `;
+					industryContainer.appendChild(container);
+					cardHover(datas[i], i);
+				}
+			}
+
+			function loadJson() {
+				// var jsonData = JSON.parse('{{ json_output|e("js") }}');
+				// industryContent = jsonData;
+				fetch("https://64c7fae1a1fe0128fbd58475.mockapi.io/industry")
+					.then((res) => res.json())
+					.then((data) => {
+						industryContent = data;
+						removeCards();
+						createCards(industryContent);
+						getTabs(industryContent);
+						initialDataSetup();
+					});
+			}
+		</script>
+		<script>
+			function cardHover(data, index) {
+				if (index > 4) {
+					document.getElementById(`expense${index}`).style.display = "none";
+				}
+
+				document
+					.getElementById(`expense${index}`)
+					.addEventListener("mouseover", (e) => {
+						const vide = document.getElementById(`video${index}`);
+						vide.play();
+						document.getElementById(`thumb${index}`).style.display = "none";
+					});
+				document
+					.getElementById(`expense${index}`)
+					.addEventListener("mouseleave", (e) => {
+						const vide = document.getElementById(`video${index}`);
+						vide.pause();
+						document.getElementById(`thumb${index}`).style.display = "initial";
+					});
+			}
+
+			function showMore() {
+				const len = industryContent.length;
+				console.log(len);
+				for (let i = 0; i < len; i++) {
+					document.getElementById(`expense${i}`).style.display = "flex";
+				}
+			}
+
+			function getTabs(data) {
+				tab = [];
+				data.map((res, index) => {
+					if (data.indexOf(res) === index) {
+						tab.push(res.category);
+					}
+				});
+				tab = [...new Set(tab)];
+				console.log(tab);
+				const len = tab.length;
+				const tabs = document.getElementById("tabs");
+				for (let i = 0; i < len; i++) {
+					const divEl = document.createElement("div");
+					divEl.classList.add("industry");
+					divEl.innerHTML = tab[i];
+					tabs.appendChild(divEl);
+				}
+			}
+		</script>
+	</body>
+</html>
+
+<!-- (industryContent = [
+					{
+						category: "Industry",
+						title: "Cherath",
+						sub_title: "American Eagle Outfitters",
+						content:
+							"The right priorities help us in the direction of our potential which is why it is important for earnings.",
+						button: "Read review",
+						spinner: 2.5,
+						video: "https://www.w3schools.com/tags/mov_bbb.mp4",
+						thumbnail:
+							"	https://undigital.com/hs-fs/hubfs/T%20Delarm.png?width=958&name=T%20Delarm.png",
+					},
+					{
+						category: "Industry",
+						title: "Babu",
+						sub_title: "American Eagle Outfitters",
+						content:
+							"The right priorities help us in the direction of our potential which is why it is important for earnings.",
+						button: "Read review",
+						spinner: 5.5,
+						video: "https://www.w3schools.com/tags/mov_bbb.mp4",
+						thumbnail:
+							"https://undigital.com/hs-fs/hubfs/T%20Delarm.png?width=958&name=T%20Delarm.png",
+					},
+					{
+						category: "Industry 3",
+						title: "Esakki",
+						sub_title: "American Eagle Outfitters",
+						content:
+							"The right priorities help us in the direction of our potential which is why it is important for earnings.",
+						button: "Read review",
+						spinner: 7.5,
+						video: "https://www.w3schools.com/tags/mov_bbb.mp4",
+						thumbnail:
+							"	https://undigital.com/hs-fs/hubfs/T%20Delarm.png?width=958&name=T%20Delarm.png",
+					},
+					{
+						category: "Industry 4",
+						title: "Surya",
+						sub_title: "American Eagle Outfitters",
+						content:
+							"The right priorities help us in the direction of our potential which is why it is important for earnings.",
+						button: "Read review",
+						spinner: 9.5,
+						video: "https://www.w3schools.com/tags/mov_bbb.mp4",
+						thumbnail:
+							"	https://undigital.com/hs-fs/hubfs/T%20Delarm.png?width=958&name=T%20Delarm.png",
+					},
+					{
+						category: "Industry 4",
+						title: "Surya",
+						sub_title: "American Eagle Outfitters",
+						content:
+							"The right priorities help us in the direction of our potential which is why it is important for earnings.",
+						button: "Read review",
+						spinner: 9.5,
+						video: "https://www.w3schools.com/tags/mov_bbb.mp4",
+						thumbnail:
+							"	https://undigital.com/hs-fs/hubfs/T%20Delarm.png?width=958&name=T%20Delarm.png",
+					},
+					{
+						category: "Industry 4",
+						title: "Surya",
+						sub_title: "American Eagle Outfitters",
+						content:
+							"The right priorities help us in the direction of our potential which is why it is important for earnings.",
+						button: "Read review",
+						spinner: 9.5,
+						video: "https://www.w3schools.com/tags/mov_bbb.mp4",
+						thumbnail:
+							"	https://undigital.com/hs-fs/hubfs/T%20Delarm.png?width=958&name=T%20Delarm.png",
+					},
+					{
+						category: "Industry 4",
+						title: "Surya",
+						sub_title: "American Eagle Outfitters",
+						content:
+							"The right priorities help us in the direction of our potential which is why it is important for earnings.",
+						button: "Read review",
+						spinner: 9.5,
+						video: "https://www.w3schools.com/tags/mov_bbb.mp4",
+						thumbnail:
+							"	https://undigital.com/hs-fs/hubfs/T%20Delarm.png?width=958&name=T%20Delarm.png",
+					},
+				]); -->
